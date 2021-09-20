@@ -247,15 +247,15 @@ def _setupSSHDMain(public_key, tunnel, ngrok_region, check_gpu_available, mount_
     raise RuntimeError("tunnel argument must be one of " + str(avail_tunnels))
 
   if mount_gdrive_to:
-    if not pathlib.Path('/content/drive').exists():
+    if not pathlib.Path('/home').exists():
       print("Please click the folder icon on left side of Google Colab and Mount Drive.")
       return (False, "")
 
     if mount_gdrive_from:
       try:
-        gdrive_root = pathlib.Path("/content/drive").joinpath(mount_gdrive_from).resolve(strict = True)
+        gdrive_root = pathlib.Path("/home").joinpath(mount_gdrive_from).resolve(strict = True)
         gdrive_root_parts = gdrive_root.parts
-        if len(gdrive_root_parts) < 2 or gdrive_root_parts[1] != "content":
+        if len(gdrive_root_parts) < 2 or gdrive_root_parts[1] != "home":
           raise FileNotFoundError
       except FileNotFoundError:
         print("Please specifiy the existing directory path in your Google drive like 'mount_gdrive_from = \"My Drive/somedir\"'")
